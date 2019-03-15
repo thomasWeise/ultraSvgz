@@ -13,9 +13,15 @@ import thomasWeise.tools.Configuration;
 /** A class for testing UltraZip */
 public class UltraSvgzTest {
 
+  /** are we in an CI environment? */
+  private static final boolean __IS_CI;
+
   static {
     Configuration.putInteger("gzipIntensity", 0);//$NON-NLS-1$
     Configuration.putInteger("svgIntensity", 3);//$NON-NLS-1$
+
+    __IS_CI = ("true".equals(System.getenv("CI")) || //$NON-NLS-1$//$NON-NLS-2$
+        "true".equals(System.getenv("TRAVIS")));//$NON-NLS-1$//$NON-NLS-2$
   }
 
   /**
@@ -106,6 +112,9 @@ public class UltraSvgzTest {
    */
   @Test(timeout = 900000)
   public final void testB() throws IOException {
+    if (UltraSvgzTest.__IS_CI) {
+      return;
+    }
     this.__test("b.svg");//$NON-NLS-1$
   }
 }
