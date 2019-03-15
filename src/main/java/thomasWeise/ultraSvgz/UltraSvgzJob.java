@@ -678,11 +678,22 @@ public final class UltraSvgzJob implements Callable<byte[]> {
     /** {@inheritDoc} */
     @Override
     public final int compareTo(final __Hash o) {
-      final int i = Integer.compare(this.m_hc, o.m_hc);
-      if (i != 0) {
-        return i;
+      int r = Integer.compare(this.m_hc, o.m_hc);
+      if (r != 0) {
+        return r;
       }
-      return Arrays.compare(this.m_array, o.m_array);
+      final byte[] a = this.m_array;
+      final byte[] b = o.m_array;
+      final int la = a.length;
+      final int lb = b.length;
+      final int l = Math.min(la, lb);
+      for (int i = 0; i < l; i++) {
+        r = Byte.compare(a[i], b[i]);
+        if (r != 0) {
+          return r;
+        }
+      }
+      return Integer.compare(la, lb);
     }
   }
 }

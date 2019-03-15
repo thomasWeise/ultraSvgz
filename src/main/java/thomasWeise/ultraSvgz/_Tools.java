@@ -22,7 +22,7 @@ final class _Tools {
 
   /** the transformer factory */
   private static final TransformerFactory FACT =
-      TransformerFactory.newDefaultInstance();
+      TransformerFactory.newInstance();
 
   /** the transformer */
   private static final ThreadLocal<Transformer> TRAFO =
