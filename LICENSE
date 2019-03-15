@@ -1,7 +1,34 @@
+This software uses scour (http://github.com/scour-project/scour) as one of
+its internal components. Although our software here is GPL-3 licensed,
+scour is under the Apache License Version 2.0. The GPL licensing of our
+software therefore _only_ applies to our own code, while the code of scour
+follows said Apache License Version 2.0 license.
+The binary distribution of our software may include binary versions of scour.
+The license of scour is contained in file LICENSE-scour.txt.
+
+This software uses the linux binary version of svgcleaner
+(http://github.com/RazrFalcon/svgcleaner) as one of its internal
+components. Although our software here is GPL-3 licensed, svgcleaner is
+under the GPL-2. We obtained permission from Mr. Reizner via email
+(razrfalcon@gmail.com) to include his binaries this way. The GPL-3
+licensing of our software therefore _only_ applies to our own code, while
+the code of svgcleaner follows said GPL 2 license. The binary
+distribution of our software may include binary versions of svgcleaner.
+The license of svgcleaner is contained in file LICENSE-svgcleaner.txt.
+
+This software indirectly uses JZlib (http://www.jcraft.com/jzlib/) as one of
+its internal gzip utilities. Although our software here is GPL licensed,
+JZlib is under a BSD-style license (http://www.jcraft.com/jzlib/LICENSE.txt).
+The GPL licensing of our software therefore _only_ applies to our own
+code, while the code of JZLib follows said BSD-style license.
+The binary distribution of our software may include binary versions of JZlib.
+The license of JZlib is contained in file LICENSE-JZlib.txt.
+
+
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
- Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
+ Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>
  Everyone is permitted to copy and distribute verbatim copies
  of this license document, but changing it is not allowed.
 
@@ -631,8 +658,8 @@ to attach them to the start of each source file to most effectively
 state the exclusion of warranty; and each file should have at least
 the "copyright" line and a pointer to where the full notice is found.
 
-    <one line to give the program's name and a brief idea of what it does.>
-    Copyright (C) <year>  <name of author>
+    {one line to give the program's name and a brief idea of what it does.}
+    Copyright (C) {year}  {name of author}
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -645,14 +672,14 @@ the "copyright" line and a pointer to where the full notice is found.
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Also add information on how to contact you by electronic and paper mail.
 
   If the program does terminal interaction, make it output a short
 notice like this when it starts in an interactive mode:
 
-    <program>  Copyright (C) <year>  <name of author>
+    {project}  Copyright (C) {year}  {fullname}
     This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
     This is free software, and you are welcome to redistribute it
     under certain conditions; type `show c' for details.
@@ -664,11 +691,11 @@ might be different; for a GUI interface, you would use an "about box".
   You should also get your employer (if you work as a programmer) or school,
 if any, to sign a "copyright disclaimer" for the program, if necessary.
 For more information on this, and how to apply and follow the GNU GPL, see
-<https://www.gnu.org/licenses/>.
+<http://www.gnu.org/licenses/>.
 
   The GNU General Public License does not permit incorporating your program
 into proprietary programs.  If your program is a subroutine library, you
 may consider it more useful to permit linking proprietary applications with
 the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
-<https://www.gnu.org/licenses/why-not-lgpl.html>.
+<http://www.gnu.org/philosophy/why-not-lgpl.html>.

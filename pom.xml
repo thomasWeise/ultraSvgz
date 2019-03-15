@@ -1,0 +1,267 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>thomasWeise</groupId>
+	<artifactId>ultraSvgz</artifactId>
+	<version>0.8.0</version>
+	<packaging>jar</packaging>
+	<name>ultraSvgz</name>
+	<description>This tools tries to achieve maximum compression of Scalable Vector Graphics (SVGs), regardless of how long it may take.</description>
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>9</version>
+	</parent>
+
+	<url>http://iao.hfuu.edu.cn/</url>
+	<organization>
+		<url>http://iao.hfuu.edu.cn/</url>
+		<name>Institute of Applied Optimization</name>
+	</organization>
+
+	<developers>
+		<developer>
+			<id>thomasWeise</id>
+			<name>Thomas Weise</name>
+			<email>tweise@hfuu.edu.cn</email>
+			<url>http://iao.hfuu.edu.cn/team/director</url>
+			<organization>Hefei University, Institute of Applied Optimization</organization>
+			<organizationUrl>http://iao.hfuu.edu.cn/</organizationUrl>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>China Time Zone</timezone>
+		</developer>
+	</developers>
+
+	<properties>
+		<encoding>UTF-8</encoding>
+		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
+		<jdk.version>1.8</jdk.version>
+		<junit.version>4.11</junit.version>
+		<project.mainClass>thomasWeise.ultraSvgz.Main</project.mainClass>
+	</properties>
+
+	<licenses>
+		<license>
+			<name>GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007</name>
+			<url>http://www.gnu.org/licenses/gpl-3.0-standalone.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<issueManagement>
+		<url>https://github.com/thomasWeise/ultraSvgz/issues</url>
+		<system>GitHub</system>
+	</issueManagement>
+
+	<scm>
+		<connection>scm:git:git@github.com:thomasWeise/ultraSvgz.git</connection>
+		<developerConnection>scm:git:git@github.com:thomasWeise/ultraSvgz.git</developerConnection>
+		<url>git@github.com:thomasWeise/ultraSvgz.git</url>
+	</scm>
+
+	<inceptionYear>2019</inceptionYear>
+
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.thomasWeise</groupId>
+			<artifactId>ultraGzip</artifactId>
+			<version>0.9.2</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-enforcer-plugin</artifactId>
+										<versionRange>[1.0.0,)</versionRange>
+										<goals>
+											<goal>enforce</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+					<encoding>${encoding}</encoding>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<!-- The plugin for running the tests. -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M3</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.1.1</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries />
+							<addDefaultSpecificationEntries />
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<!-- The JavaDoc generating and packaging plugin. -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.1.0 </version>
+				<configuration>
+					<show>private</show>
+					<detectLinks>true</detectLinks>
+					<detectJavaApiLink>true</detectJavaApiLink>
+					<quiet>true</quiet>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadoc</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<createSourcesJar>true</createSourcesJar>
+							<shadeTestJar>true</shadeTestJar>
+							<minimizeJar>false</minimizeJar>
+							<shadedArtifactAttached>true</shadedArtifactAttached>
+							<createDependencyReducedPom>false</createDependencyReducedPom>
+
+							<shadedClassifierName>full</shadedClassifierName>
+
+							<filters>
+								<filter>
+									<artifact>*:*</artifact>
+									<excludes>
+										<exclude>META-INF/*.SF</exclude>
+										<exclude>META-INF/*.DSA</exclude>
+										<exclude>META-INF/*.RSA</exclude>
+									</excludes>
+								</filter>
+							</filters>
+
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>${project.mainClass}</mainClass>
+								</transformer>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer" />
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ApacheNoticeResourceTransformer" />
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.PluginXmlResourceTransformer" />
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+							</transformers>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<!-- A plugin for generating a source jar. -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<includePom>true</includePom>
+					<useDefaultExcludes>true</useDefaultExcludes>
+					<useDefaultManifestFile>false</useDefaultManifestFile>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>3.0.0</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>3.0.0-M3</version>
+			</plugin>
+		</plugins>
+	</reporting>
+</project>

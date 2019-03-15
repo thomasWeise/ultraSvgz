@@ -1,0 +1,19 @@
+##
+## Build with Travis.CI
+##
+language: java
+
+# By default, it runs under Java 8
+jdk:
+  - oraclejdk8
+  - oraclejdk9
+  - openjdk8
+    
+# Cache Maven dependencies to speed up builds.
+cache:
+  directories:
+  - $HOME/.m2
+
+before_install:
+# install third party tools
+  - sudo apt-get install librsvg2-bin librsvg2-common
