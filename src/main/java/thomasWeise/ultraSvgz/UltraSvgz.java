@@ -67,6 +67,9 @@ public final class UltraSvgz
     out.println(
         "Our software includes the linux binary version of svgcleaner (http://github.com/RazrFalcon/svgcleaner), which is under the GPL 2."); //$NON-NLS-1$
 
+    out.println(
+        "Our software uses the free online svg minifying service <https://www.svgminify.com> provided Spikerog SAS, 15 Grand Rue, 11800 Laure Minervois, France. For this step, obviously the terms and conditions of this service and company hold."); //$NON-NLS-1$
+
     out.print("UltraSvgz "); //$NON-NLS-1$
     out.print(UltraSvgz.VERSION);
     out.println(

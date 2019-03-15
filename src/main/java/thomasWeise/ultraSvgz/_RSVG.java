@@ -4,82 +4,81 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import thomasWeise.tools.Configuration;
 import thomasWeise.tools.ConsoleIO;
 import thomasWeise.tools.EProcessStream;
 import thomasWeise.tools.ExternalProcessExecutor;
 import thomasWeise.tools.TempDir;
 
 /** use the scour tooling support */
-final class _Checker {
+final class _RSVG {
 
   /** the rsvg-convert path */
-  private static final Path __RSVG_CONVERT_PATH =
-      _RSVG._RSVG_CONVERT_PATH;
+  static final Path _RSVG_CONVERT_PATH =
+      Configuration.getExecutable("rsvg-convert"); //$NON-NLS-1$
+
+  /** can we use this tool? */
+  static final boolean _CAN_USE =
+      (_RSVG._RSVG_CONVERT_PATH != null);
 
   /**
-   * check whether the given bytes can be converted
+   * apply the rsvg-convert
    *
-   * @param name
-   *          the producer name
    * @param in
    *          the input
    * @return the output
    */
-  static final boolean _check(final byte[] in,
-      final String name) {
+  static final byte[] _apply(final byte[] in) {
     if (in == null) {
-      return false;
+      return null;
     }
-    if (in.length <= 3) {
-      ConsoleIO.stdout(name + " produced too small of a svgz!"); //$NON-NLS-1$
-      return false;
-    }
-    if (_Checker.__RSVG_CONVERT_PATH != null) {
+    if (_RSVG._RSVG_CONVERT_PATH != null) {
       try (final TempDir temp = new TempDir()) {
         final Path dir = temp.getPath();
 
         final Path input =
-            Files.createTempFile(dir, null, ".svgz").normalize();//$NON-NLS-1$
+            Files.createTempFile(dir, null, ".svg").normalize();//$NON-NLS-1$
         try (final OutputStream bos =
             Files.newOutputStream(input)) {
           bos.write(in);
         }
 
         final Path output =
-            Files.createTempFile(dir, null, ".pdf").normalize();//$NON-NLS-1$
+            Files.createTempFile(dir, null, ".svg").normalize();//$NON-NLS-1$
 
         final int res =
             ExternalProcessExecutor.getInstance().get()//
-                .setExecutable(_Checker.__RSVG_CONVERT_PATH)//
+                .setExecutable(_RSVG._RSVG_CONVERT_PATH)//
                 .setDirectory(dir)//
                 .addPathArgument(input)//
                 .addStringArgument("-f")//$NON-NLS-1$
-                .addStringArgument("pdf")//$NON-NLS-1$
+                .addStringArgument("svg")//$NON-NLS-1$
                 .addStringArgument("-o")//$NON-NLS-1$
                 .addPathArgument(output)
                 .setStdErr(EProcessStream.INHERIT)
                 .setStdOut(EProcessStream.IGNORE)
                 .setStdIn(EProcessStream.IGNORE).get().waitFor();
         if (res == 0) {
-          if (Files.size(output) >= 5) {
-            ConsoleIO.stdout(name + " SVGZ (size " + in.length //$NON-NLS-1$
-                + "B) verified successfully by rsvg-convert.");//$NON-NLS-1$
+          final byte[] data = Files.readAllBytes(output);
+          if (data.length > 0) {
+            ConsoleIO.stdout(
+                "rsvg completed successful, produced svg of "//$NON-NLS-1$
+                    + data.length + " bytes.");//$NON-NLS-1$
+            return data;
           } else {
-            return false;
+            ConsoleIO.stderr("rsvg created empty file.", //$NON-NLS-1$
+                null);
           }
         } else {
-          ConsoleIO.stderr(name + //
-              " could not complete rsvg-convert, exit code "//$NON-NLS-1$
+          ConsoleIO.stderr("could not complete rsvg, exit code "//$NON-NLS-1$
               + res, null);
-          return false;
         }
       } catch (final Throwable error) {
-        ConsoleIO.stderr("error when applying rsvg-convert to"//$NON-NLS-1$
-            + name, error);
-        return false;
+        ConsoleIO.stderr("error when applying rsvg-convert"//$NON-NLS-1$
+            , error);
       }
     }
 
-    return true;
+    return null;
   }
 }

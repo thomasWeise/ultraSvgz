@@ -581,19 +581,25 @@ public final class UltraSvgzJob implements Callable<byte[]> {
             () -> this.__applyBB(_Scour::_apply, "scour", //$NON-NLS-1$
                 false)));
       }
-
       jobs.add(Execute.parallel(() -> //
       this.__applyBD(_Tools::_fromBytes, "domParsing"))); //$NON-NLS-1$
       jobs.add(Execute.parallel(() -> //
       this.__applyDOM(_FixIDs::_apply, "fixIDs"))); //$NON-NLS-1$
       jobs.add(Execute.parallel(() -> //
       this.__applyDOM(_Canonicalize::_apply, "canon"))); //$NON-NLS-1$
-      jobs.add(Execute.parallel(() -> //
-      this.__applyBB(_SVGCleaner::_apply, "svgcleaner", //$NON-NLS-1$
-          false)));
+      if (_SVGCleaner._CAN_USE) {
+        jobs.add(Execute.parallel(() -> //
+        this.__applyBB(_SVGCleaner::_apply, "svgcleaner", //$NON-NLS-1$
+            false)));
+      }
       jobs.add(Execute.parallel(() -> //
       this.__applyBB(_SVGMinify::_apply, "svgminify", //$NON-NLS-1$
           false)));
+      if (_RSVG._CAN_USE) {
+        jobs.add(Execute.parallel(() -> //
+        this.__applyBB(_RSVG::_apply, "rsvg", //$NON-NLS-1$
+            false)));
+      }
 
       Execute.join(jobs);
       jobs.clear();
