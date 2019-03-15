@@ -93,7 +93,7 @@ public class UltraSvgzTest {
    * @throws IOException
    *           if i/o fails
    */
-  @Test(timeout = 300000)
+  @Test(timeout = 900000)
   public final void testA() throws IOException {
     this.__test("a.svg");//$NON-NLS-1$
   }
@@ -104,19 +104,8 @@ public class UltraSvgzTest {
    * @throws IOException
    *           if i/o fails
    */
-  @Test(timeout = 300000)
+  @Test(timeout = 900000)
   public final void testB() throws IOException {
     this.__test("b.svg");//$NON-NLS-1$
-  }
-
-  /**
-   * Test resource c.svg
-   *
-   * @throws IOException
-   *           if i/o fails
-   */
-  @Test(timeout = 300000)
-  public final void testC() throws IOException {
-    this.__test("c.svg");//$NON-NLS-1$
   }
 }

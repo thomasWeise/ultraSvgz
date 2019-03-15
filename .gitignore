@@ -15,6 +15,7 @@ hs_err_pid*
 # other files, potentially created by build tools
 /.settings
 /.classpath
+.project
 /bin
 /classes
 /build
