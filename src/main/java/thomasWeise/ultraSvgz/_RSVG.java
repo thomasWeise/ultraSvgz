@@ -22,7 +22,7 @@ final class _RSVG {
       (_RSVG._RSVG_CONVERT_PATH != null);
 
   /**
-   * apply the rsvg-convert
+   * apply the rsvg-convert svg-to-svg conversation
    *
    * @param in
    *          the input

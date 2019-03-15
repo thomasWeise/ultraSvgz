@@ -126,7 +126,8 @@ final class _SVGMinify {
   }
 
   /**
-   * apply the scour transformation
+   * apply the svgminify transformation: send the svg via a HTTP
+   * POST (over ssl) to www.svgminify.com and download the result
    *
    * @param in
    *          the input

@@ -61,6 +61,11 @@ public final class UltraSvgz
     out.println(
         " is under the GPL 3 license and published at http://github.com/thomasWeise/ultraSvgz.");//$NON-NLS-1$
 
+    out.print("UltraSvgz "); //$NON-NLS-1$
+    out.print(UltraSvgz.VERSION);
+    out.println(
+        " makes use of many other great tools, including scour, python, rsvg-convert, svgcleaner, and JZLib, which have their own licensing requirements."); //$NON-NLS-1$
+
     out.println(
         "Our software includes the code of scour (http://github.com/scour-project/scour), which is under the Apache License Version 2.0."); //$NON-NLS-1$
 
