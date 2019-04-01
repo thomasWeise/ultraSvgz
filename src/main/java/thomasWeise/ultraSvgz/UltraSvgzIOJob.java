@@ -3,25 +3,13 @@ package thomasWeise.ultraSvgz;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
 
 import thomasWeise.tools.ByteBuffers;
 import thomasWeise.tools.ConsoleIO;
+import thomasWeise.tools.IOJob;
 
 /** The job for the ultra svgz I/O tool. */
-public final class UltraSvgzIOJob implements Runnable {
-
-  /** the input path */
-  private final Path m_input;
-
-  /** should we use stdin instead of an input file? */
-  private final boolean m_useStdIn;
-
-  /** the output path */
-  private final Path m_output;
-
-  /** should we use stdout instead of an output file? */
-  private final boolean m_useStdOut;
+public final class UltraSvgzIOJob extends IOJob {
 
   /**
    * create
@@ -30,14 +18,7 @@ public final class UltraSvgzIOJob implements Runnable {
    *          the job builder
    */
   UltraSvgzIOJob(final UltraSvgzIOJobBuilder ugo) {
-    super();
-
-    this.m_input = ugo.m_input;
-    this.m_useStdIn = ugo.m_useStdIn;
-    this.m_output = ugo.m_output;
-    this.m_useStdOut = ugo.m_useStdOut;
-    UltraSvgzIOJobBuilder._validate(this.m_input,
-        this.m_useStdIn, this.m_output, this.m_useStdOut);
+    super(ugo);
   }
 
   /** run! */
@@ -48,23 +29,24 @@ public final class UltraSvgzIOJob implements Runnable {
     int size;
     String name;
 
-    if (this.m_useStdIn) {
+    if (this.isUsingStdIn()) {
       name = "stdin"; //$NON-NLS-1$
     } else {
-      name = this.m_input.getFileName().toString();
+      name = this.getInputPath().getFileName().toString();
     }
-    if (this.m_useStdOut) {
+    if (this.isUsingStdOut()) {
       name += "->stdout"; //$NON-NLS-1$
     } else {
       name = (((name + '-') + '>')
-          + this.m_output.getFileName().toString());
+          + this.getOutputPath().getFileName().toString());
     }
 
     ConsoleIO.stdout(name + " is now loading input data."); //$NON-NLS-1$
     try {
 
-      try (final InputStream is = (this.m_useStdIn ? System.in//
-          : Files.newInputStream(this.m_input))) {
+      try (
+          final InputStream is = (this.isUsingStdIn() ? System.in//
+              : Files.newInputStream(this.getInputPath()))) {
         data = ByteBuffers.get().load(is);
       }
 
@@ -80,8 +62,8 @@ public final class UltraSvgzIOJob implements Runnable {
               + "B, which will now be written to the output."); //$NON-NLS-1$
 
       try (final OutputStream os =
-          (this.m_useStdOut ? System.out : //
-              Files.newOutputStream(this.m_output))) {//
+          (this.isUsingStdOut() ? System.out : //
+              Files.newOutputStream(this.getOutputPath()))) {//
         os.write(out);
         size = out.length;
         data = null;

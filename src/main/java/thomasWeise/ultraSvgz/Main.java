@@ -3,6 +3,7 @@ package thomasWeise.ultraSvgz;
 import thomasWeise.tools.Configuration;
 import thomasWeise.tools.ConsoleIO;
 import thomasWeise.tools.Execute;
+import thomasWeise.tools.IOJobBuilder;
 
 /** The main class for the Ultra Svgz tool */
 public final class Main {
@@ -29,13 +30,13 @@ public final class Main {
         out.println("Usage: java -jar ultraSvgz-" + //$NON-NLS-1$
         UltraSvgz.VERSION + "-full.jar [ARGUMENTS]");//$NON-NLS-1$
         out.println("Command line arguments are.");//$NON-NLS-1$
-        out.println(' ' + UltraSvgzIOJobBuilder.PARAM_IN + //
+        out.println(' ' + IOJobBuilder.PARAM_IN + //
         "=path/to/file ... the path to the file to compress");//$NON-NLS-1$
-        out.println(' ' + UltraSvgzIOJobBuilder.PARAM_STDIN + //
+        out.println(' ' + IOJobBuilder.PARAM_STDIN + //
         " ... read data to compress from stdin instead of file");//$NON-NLS-1$
-        out.println(' ' + UltraSvgzIOJobBuilder.PARAM_OUT + //
+        out.println(' ' + IOJobBuilder.PARAM_OUT + //
         "=path/to/file ... the path to the file to write compressed output to (can be omitted, in which case an the same name as the input file, just with svgz suffix, will be used)");//$NON-NLS-1$
-        out.println(' ' + UltraSvgzIOJobBuilder.PARAM_STDOUT + //
+        out.println(' ' + IOJobBuilder.PARAM_STDOUT + //
         " ... write data to stdout instead of file");//$NON-NLS-1$
         out.println(' ' + Main.PARAM_HELP + //
         "... print this help screen");//$NON-NLS-1$

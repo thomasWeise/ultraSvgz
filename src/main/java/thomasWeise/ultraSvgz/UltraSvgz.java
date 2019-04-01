@@ -15,7 +15,7 @@ public final class UltraSvgz
   private static final String PARAM_INTENSITY = "svgIntensity"; //$NON-NLS-1$
 
   /** the UtralGzip Version */
-  static final String VERSION = "0.8.0"; //$NON-NLS-1$
+  static final String VERSION = "0.8.1"; //$NON-NLS-1$
 
   /** create */
   UltraSvgz() {
