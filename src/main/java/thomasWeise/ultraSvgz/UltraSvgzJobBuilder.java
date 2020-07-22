@@ -12,9 +12,13 @@ public final class UltraSvgzJobBuilder
   /** the job's name */
   private String m_name;
 
+  /** should white space be removed? */
+  private boolean m_cleanseWhiteSpace;
+
   /** create */
   UltraSvgzJobBuilder() {
     super();
+    this.m_cleanseWhiteSpace = true;
   }
 
   /**
@@ -24,7 +28,7 @@ public final class UltraSvgzJobBuilder
    *          the name string
    * @return the prepared name
    */
-  static final String _checkName(final String name) {
+  static String _checkName(final String name) {
     final String str;
 
     str = name.trim();
@@ -43,7 +47,7 @@ public final class UltraSvgzJobBuilder
    *          the name of the data element to be packed
    * @return this builder
    */
-  public final UltraSvgzJobBuilder setName(final String name) {
+  public UltraSvgzJobBuilder setName(final String name) {
     this.m_name = UltraSvgzJobBuilder._checkName(name);
     return this;
   }
@@ -54,7 +58,7 @@ public final class UltraSvgzJobBuilder
    * @param data
    *          the data
    */
-  static final void _checkData(final byte[] data) {
+  static void _checkData(final byte[] data) {
     if (data == null) {
       throw new IllegalArgumentException(
           "Data to be gzip-compressed cannot be null."); //$NON-NLS-1$
@@ -72,7 +76,7 @@ public final class UltraSvgzJobBuilder
    *          the data to be compressed
    * @return this builder
    */
-  public final UltraSvgzJobBuilder setData(final byte[] data) {
+  public UltraSvgzJobBuilder setData(final byte[] data) {
     UltraSvgzJobBuilder._checkData(data);
     this.m_data = data;
     return this;
@@ -80,7 +84,30 @@ public final class UltraSvgzJobBuilder
 
   /** {@inheritDoc} */
   @Override
-  public final UltraSvgzJob get() {
-    return new UltraSvgzJob(this.m_data, this.m_name);
+  public UltraSvgzJob get() {
+    return new UltraSvgzJob(this.m_data, this.m_name,
+        this.m_cleanseWhiteSpace);
+  }
+
+  /**
+   * set whether we should cleanse white space?
+   *
+   * @param cleanseWhiteSpace
+   *          should we cleanse white space?
+   * @return this
+   */
+  public UltraSvgzJobBuilder
+      setCleanseWhiteSpace(final boolean cleanseWhiteSpace) {
+    this.m_cleanseWhiteSpace = cleanseWhiteSpace;
+    return this;
+  }
+
+  /**
+   * should we cleanse white space?
+   *
+   * @return should we cleanse white space?
+   */
+  public boolean getCleanseWhiteSpace() {
+    return this.m_cleanseWhiteSpace;
   }
 }

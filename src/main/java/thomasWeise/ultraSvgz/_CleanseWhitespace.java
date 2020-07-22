@@ -39,7 +39,7 @@ final class _CleanseWhitespace {
    * @param add
    *          the string
    */
-  private static final void __noWS(final StringBuilder dest,
+  private static void __noWS(final StringBuilder dest,
       final String add) {
     String a = _CleanseWhitespace.WS2.matcher(add.trim())
         .replaceAll(" ");//$NON-NLS-1$
@@ -59,7 +59,7 @@ final class _CleanseWhitespace {
    *          the input document
    * @return the output document
    */
-  static final byte[] _apply(final byte[] in) {
+  static byte[] _apply(final byte[] in) {
     final String input =
         new String(in, _CleanseWhitespace.__UTF8_CHARSET);
     final StringBuilder result =

@@ -53,7 +53,7 @@ final class _NumberSystem {
    *          the value
    * @return the id
    */
-  final String _getID(final int value) {
+  String _getID(final int value) {
     final StringBuilder sb = new StringBuilder();
 
     char[] use = this.m_code[0];
@@ -100,8 +100,7 @@ final class _NumberSystem {
    *         characters for starting the ID and the second one
    *         with the valid characters for all further IDs
    */
-  private static final char[][]
-      __getCode(final Document document) {
+  private static char[][] __getCode(final Document document) {
     final long[] hist = new long[1
         + _NumberSystem.VALID_ID[1][_NumberSystem.VALID_ID[1].length
             - 1]];

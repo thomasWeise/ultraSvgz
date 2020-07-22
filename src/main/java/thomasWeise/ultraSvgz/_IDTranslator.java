@@ -51,7 +51,7 @@ final class _IDTranslator {
    *          the id
    */
   @SuppressWarnings("unchecked")
-  final void _tickID(final String id) {
+  void _tickID(final String id) {
     AtomicLong l = ((AtomicLong) (this.m_map.get(id)));
     if (l == null) {
       l = new AtomicLong(1L);
@@ -63,7 +63,7 @@ final class _IDTranslator {
 
   /** transform the collected IDs */
   @SuppressWarnings("unchecked")
-  final void _translate() {
+  void _translate() {
     final Map.Entry<String, AtomicLong>[] list = //
         ((Map.Entry<String, AtomicLong>[]) (this.m_map//
             .entrySet()
@@ -85,7 +85,7 @@ final class _IDTranslator {
    *          the id
    * @return the translated id
    */
-  final String _translateID(final String id) {
+  String _translateID(final String id) {
     final String s = ((String) (this.m_map.get(id)));
     if (s == null) {
       throw new IllegalStateException("id '" //$NON-NLS-1$

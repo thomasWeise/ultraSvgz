@@ -15,7 +15,7 @@ public final class UltraSvgz
   private static final String PARAM_INTENSITY = "svgIntensity"; //$NON-NLS-1$
 
   /** the UtralGzip Version */
-  static final String VERSION = "0.8.1"; //$NON-NLS-1$
+  static final String VERSION = "0.8.2"; //$NON-NLS-1$
 
   /** create */
   UltraSvgz() {
@@ -27,13 +27,13 @@ public final class UltraSvgz
    *
    * @return the intensity level
    */
-  static final int _getIntensity() {
+  static int _getIntensity() {
     return __Intensity.INTENSITY;
   }
 
   /** {@inheritDoc} */
   @Override
-  public final String toString() {
+  public String toString() {
     return "UltraSvgz"; //$NON-NLS-1$
   }
 
@@ -43,7 +43,7 @@ public final class UltraSvgz
    * @param out
    *          the print stream to write to
    */
-  public static final void printArgs(final PrintStream out) {
+  public static void printArgs(final PrintStream out) {
     out.println(' ' + UltraSvgz.PARAM_INTENSITY
         + "=0(min)..10(max), default 5: intensity - the higher the slower");//$NON-NLS-1$
     UltraGzip.printArgs(out);
@@ -55,7 +55,7 @@ public final class UltraSvgz
    * @param out
    *          the print stream to write to
    */
-  public static final void printLicense(final PrintStream out) {
+  public static void printLicense(final PrintStream out) {
     out.print("UltraSvgz "); //$NON-NLS-1$
     out.print(UltraSvgz.VERSION);
     out.println(
@@ -84,7 +84,7 @@ public final class UltraSvgz
 
   /** {@inheritDoc} */
   @Override
-  public final UltraSvgzJobBuilder get() {
+  public UltraSvgzJobBuilder get() {
     return new UltraSvgzJobBuilder();
   }
 
@@ -93,7 +93,7 @@ public final class UltraSvgz
    *
    * @return the globally shared instance of the Ultra Svgz tool
    */
-  public static final UltraSvgz getInstance() {
+  public static UltraSvgz getInstance() {
     return __UltraSvgzHolder.INSTANCE;
   }
 

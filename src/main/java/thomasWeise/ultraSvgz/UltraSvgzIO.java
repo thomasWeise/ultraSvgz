@@ -13,13 +13,13 @@ public final class UltraSvgzIO
 
   /** {@inheritDoc} */
   @Override
-  public final UltraSvgzIOJobBuilder get() {
+  public UltraSvgzIOJobBuilder get() {
     return new UltraSvgzIOJobBuilder();
   }
 
   /** {@inheritDoc} */
   @Override
-  public final String toString() {
+  public String toString() {
     return "UltraSvgzIO"; //$NON-NLS-1$
   }
 
@@ -28,7 +28,7 @@ public final class UltraSvgzIO
    *
    * @return the globally shared instance of the Ultra Svgz tool
    */
-  public static final UltraSvgzIO getInstance() {
+  public static UltraSvgzIO getInstance() {
     return __UltraSvgzHolder.INSTANCE;
   }
 

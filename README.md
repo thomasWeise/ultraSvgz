@@ -9,7 +9,7 @@ Then, it takes the resulting data and pipes it through our [UltraGzip](http://gi
 
 ## 1. How to use `UlrtraSvgz` from the Command Line
 
-Run `java -jar ultraGzip-0.8.0-full.jar ARGUMENTS`
+Run `java -jar ultraGzip-0.8.2-full.jar ARGUMENTS`
 
 The following arguments are supported:
 
@@ -20,6 +20,7 @@ The following arguments are supported:
 - `si` compress contents written to `stdin` instead of a file. You must specify either `in=...` or the `si` option. 
 - `out=/path/to/file` the path to the file where the compressed data should be written to; if omitted and `in` is specified, an output file of the same name as the input will be generated in the input file's directory, but with an `.svgz` suffix.
 - `so` write the compressed contents to `stdout` instead of a file. You must specify either `out=...` or the `so` option.
+- `dontCleanseWhiteSpace` do not apply the internal routine for cleansing white space, because it might mess up double-spaces in text.
 - `help` print the help screen
 
 ## 2. Requirements

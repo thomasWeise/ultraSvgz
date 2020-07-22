@@ -29,7 +29,7 @@ final class _SVGCleaner {
    *          the input
    * @return the output
    */
-  static final byte[] _apply(final byte[] in) {
+  static byte[] _apply(final byte[] in) {
     if (!_SVGCleaner._CAN_USE) {
       return null;
     }

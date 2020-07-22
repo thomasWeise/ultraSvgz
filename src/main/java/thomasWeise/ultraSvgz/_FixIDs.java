@@ -34,7 +34,7 @@ final class _FixIDs {
    *          the input document
    * @return the new document
    */
-  static final Document _apply(final Document in) {
+  static Document _apply(final Document in) {
     final Document copy = _Tools._clone(in);
 
     for (int i = 4; (--i) >= 0;) {
@@ -53,7 +53,7 @@ final class _FixIDs {
    * @param system
    *          the number system
    */
-  private static final void __fixIDs(final Document doc,
+  private static void __fixIDs(final Document doc,
       final _NumberSystem system) {
     final _IDTranslator trans = new _IDTranslator(system);
 
@@ -70,7 +70,7 @@ final class _FixIDs {
    * @param trans
    *          the translator
    */
-  private static final void __collectIDs(final Element node,
+  private static void __collectIDs(final Element node,
       final _IDTranslator trans) {
     final String s = node.getAttribute("id");//$NON-NLS-1$
     if ((s != null) && (!(s.isEmpty()))) {
@@ -97,7 +97,7 @@ final class _FixIDs {
    * @param trans
    *          the translator
    */
-  private static final void __translateIDs(final Element node,
+  private static void __translateIDs(final Element node,
       final _IDTranslator trans) {
     String s = node.getAttribute("id");//$NON-NLS-1$
     if ((s != null) && (!(s.isEmpty()))) {
@@ -161,7 +161,7 @@ final class _FixIDs {
    * @param system
    *          the number system
    */
-  private static final void __fixNamespaces(final Document doc,
+  private static void __fixNamespaces(final Document doc,
       final _NumberSystem system) {
     final _IDTranslator trans = new _IDTranslator(system);
 
@@ -180,8 +180,8 @@ final class _FixIDs {
    * @param trans
    *          the translator
    */
-  private static final void __collectNamespacess(
-      final Element node, final _IDTranslator trans) {
+  private static void __collectNamespacess(final Element node,
+      final _IDTranslator trans) {
 
     String s = node.getPrefix();
     if ((s != null) && (!(s.isEmpty()))) {
@@ -235,8 +235,8 @@ final class _FixIDs {
    * @param trans
    *          the translator
    */
-  private static final void __translateNamespacess(
-      final Element node, final _IDTranslator trans) {
+  private static void __translateNamespacess(final Element node,
+      final _IDTranslator trans) {
 
     String s;
     String t = node.getPrefix();

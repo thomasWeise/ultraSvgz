@@ -25,8 +25,7 @@ final class _Checker {
    *          the input
    * @return the output
    */
-  static final boolean _check(final byte[] in,
-      final String name) {
+  static boolean _check(final byte[] in, final String name) {
     if (in == null) {
       return false;
     }

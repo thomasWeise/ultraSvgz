@@ -37,6 +37,8 @@ public final class UltraSvgzJob implements Callable<byte[]> {
   /** the best svg document value has been improved */
   private static final int IMPROVED_BEST_SVG_DOC = 8;
 
+  /** should white space be removed? */
+  private final boolean m_cleanseWhiteSpace;
   /** the data */
   private final byte[][] m_data;
 
@@ -77,11 +79,15 @@ public final class UltraSvgzJob implements Callable<byte[]> {
    *          the data to compress
    * @param name
    *          the name of the data
+   * @param cleanseWhiteSpace
+   *          should we cleance white space?
    */
-  UltraSvgzJob(final byte[] data, final String name) {
+  UltraSvgzJob(final byte[] data, final String name,
+      final boolean cleanseWhiteSpace) {
     super();
 
     UltraSvgzJobBuilder._checkData(data);
+    this.m_cleanseWhiteSpace = cleanseWhiteSpace;
     this.m_data = new byte[][] { data, data };
     this.m_name = UltraSvgzJobBuilder._checkName(name);
     this.m_dataNames = new String[] { this.m_name, this.m_name };
@@ -118,7 +124,7 @@ public final class UltraSvgzJob implements Callable<byte[]> {
    * @param result
    *          the dom node
    */
-  private final void __register(final Document result,
+  private void __register(final Document result,
       final String name) {
     if (result == null) {
       return;
@@ -141,25 +147,27 @@ public final class UltraSvgzJob implements Callable<byte[]> {
    * @param passThrough
    *          should we pass through?
    */
-  private final void __register(final byte[] data,
-      final String name, final Document doc,
-      final boolean passThrough) {
+  private void __register(final byte[] data, final String name,
+      final Document doc, final boolean passThrough) {
     if (data == null) {
       return;
     }
 
-    final byte[] alt = _CleanseWhitespace._apply(data);
-    if ((alt != null) && (alt.length < data.length)) {
-      if (this.__register2(alt, "noWS:" + name, doc, //$NON-NLS-1$
-          false)) {
-        if ((alt.length + 16) <= data.length) {
-          // If the alternative version is more than 16 bytes
-          // shorter than data, then the compressed version of
-          // alt will probably smaller than data abd we don't
-          // test compressing data. Otherwise, both versions are
-          // similar in size, so they may indeed compress to
-          // different sizes.
-          return;
+    if (this.m_cleanseWhiteSpace) {
+      final byte[] alt = _CleanseWhitespace._apply(data);
+      if ((alt != null) && (alt.length < data.length)) {
+        if (this.__register2(alt, "noWS:" + name, doc, //$NON-NLS-1$
+            false)) {
+          if ((alt.length + 16) <= data.length) {
+            // If the alternative version is more than 16 bytes
+            // shorter than data, then the compressed version of
+            // alt will probably smaller than data and we don't
+            // test compressing data. Otherwise, both versions
+            // are
+            // similar in size, so they may indeed compress to
+            // different sizes.
+            return;
+          }
         }
       }
     }
@@ -180,7 +188,7 @@ public final class UltraSvgzJob implements Callable<byte[]> {
    *          should we pass-through?
    * @return {@code true} if everything is ok
    */
-  private final boolean __register2(final byte[] data,
+  private boolean __register2(final byte[] data,
       final String name, final Document doc,
       final boolean passThrough) {
     if ((data == null) || (data.length <= 2)) {
@@ -323,7 +331,7 @@ public final class UltraSvgzJob implements Callable<byte[]> {
    *          the name
    * @return the result
    */
-  private final Future<Void> __transform(final Document doc,
+  private Future<Void> __transform(final Document doc,
       final Function<Document, Document> transformer,
       final String name) {
     return Execute.parallel(() -> {
@@ -348,7 +356,7 @@ public final class UltraSvgzJob implements Callable<byte[]> {
    *          should we pass through?
    * @return the result
    */
-  private final Future<Void> __transformBB(final byte[] raw,
+  private Future<Void> __transformBB(final byte[] raw,
       final Function<byte[], byte[]> transformer,
       final String name, final boolean passThrough) {
     return Execute.parallel(() -> {
@@ -371,7 +379,7 @@ public final class UltraSvgzJob implements Callable<byte[]> {
    *          the name
    * @return the result
    */
-  private final Future<Void> __transformBD(final byte[] raw,
+  private Future<Void> __transformBD(final byte[] raw,
       final Function<byte[], Document> transformer,
       final String name) {
     return Execute.parallel(() -> {
@@ -393,7 +401,7 @@ public final class UltraSvgzJob implements Callable<byte[]> {
    * @param name
    *          the name
    */
-  private final void __applyDOM(
+  private void __applyDOM(
       final Function<Document, Document> transformer,
       final String name) {
     final Document a;
@@ -441,7 +449,7 @@ public final class UltraSvgzJob implements Callable<byte[]> {
    * @param passThrough
    *          should we pass-through?
    */
-  private final void __applyBB(
+  private void __applyBB(
       final Function<byte[], byte[]> transformer,
       final String name, final boolean passThrough) {
     final byte[] a;
@@ -491,7 +499,7 @@ public final class UltraSvgzJob implements Callable<byte[]> {
    * @param name
    *          the name
    */
-  private final void __applyBD(
+  private void __applyBD(
       final Function<byte[], Document> transformer,
       final String name) {
     final byte[] a;
@@ -535,7 +543,7 @@ public final class UltraSvgzJob implements Callable<byte[]> {
    * @param f
    *          the future
    */
-  private static final void __join1(final Future<Void> f) {
+  private static void __join1(final Future<Void> f) {
     if (f != null) {
       try {
         f.get();
@@ -548,7 +556,7 @@ public final class UltraSvgzJob implements Callable<byte[]> {
 
   /** {@inheritDoc} */
   @Override
-  public final byte[] call() {
+  public byte[] call() {
 
 // initiate dom-based compression
     Execute.join(Execute.parallel(
@@ -664,7 +672,7 @@ public final class UltraSvgzJob implements Callable<byte[]> {
 
     /** {@inheritDoc} */
     @Override
-    public final boolean equals(final Object o) {
+    public boolean equals(final Object o) {
       if (o != this) {
         final __Hash h = ((__Hash) o);
         if (h.m_hc != this.m_hc) {
@@ -677,13 +685,13 @@ public final class UltraSvgzJob implements Callable<byte[]> {
 
     /** {@inheritDoc} */
     @Override
-    public final int hashCode() {
+    public int hashCode() {
       return this.m_hc;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final int compareTo(final __Hash o) {
+    public int compareTo(final __Hash o) {
       int r = Integer.compare(this.m_hc, o.m_hc);
       if (r != 0) {
         return r;

@@ -15,7 +15,7 @@ final class _Canonicalize {
    *          the input document
    * @return the new document
    */
-  static final Document _apply(final Document in) {
+  static Document _apply(final Document in) {
     try {
       final Document copy = _Tools._clone(in);
 

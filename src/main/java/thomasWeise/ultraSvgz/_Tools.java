@@ -42,7 +42,7 @@ final class _Tools {
 
   /** the char array writers */
   private static final ThreadLocal<CharArrayWriter> CAW =
-      ThreadLocal.withInitial(() -> new CharArrayWriter());
+      ThreadLocal.withInitial(CharArrayWriter::new);
 
   /**
    * Transform an XML Document to bytes
@@ -51,7 +51,7 @@ final class _Tools {
    *          the documents
    * @return the bytes
    */
-  static final byte[] _toBytes(final Document document) {
+  static byte[] _toBytes(final Document document) {
     try (final ByteArrayOutputStream bos =
         ByteBuffers.get().getBufferedOutputStream()) {
       document.setXmlStandalone(true);
@@ -72,7 +72,7 @@ final class _Tools {
    *          the documents
    * @return the chars
    */
-  static final char[] _toChars(final Document document) {
+  static char[] _toChars(final Document document) {
     try (final CharArrayWriter bos = _Tools.CAW.get()) {
       document.setXmlStandalone(true);
       _Tools.TRAFO.get().transform(new DOMSource(document),
@@ -122,7 +122,7 @@ final class _Tools {
    *          the data
    * @return the document
    */
-  static final Document _fromBytes(final byte[] data) {
+  static Document _fromBytes(final byte[] data) {
     try (final ByteArrayInputStream bis =
         new ByteArrayInputStream(data)) {
       return _Tools.DOC_BUILDERS.get().parse(bis);
@@ -141,7 +141,7 @@ final class _Tools {
    *          the document
    * @return the copy
    */
-  static final Document _clone(final Document doc) {
+  static Document _clone(final Document doc) {
     final Document clonedDoc =
         _Tools.DOC_BUILDERS.get().newDocument();
     clonedDoc.appendChild(

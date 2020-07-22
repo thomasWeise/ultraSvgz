@@ -49,7 +49,7 @@ final class _Scour {
    *          the input
    * @return the output
    */
-  static final byte[] _apply(final byte[] in) {
+  static byte[] _apply(final byte[] in) {
     try (final TempDir temp = new TempDir()) {
       final Path dir = temp.getPath();
 

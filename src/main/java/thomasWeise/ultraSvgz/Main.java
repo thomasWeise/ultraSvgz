@@ -22,7 +22,7 @@ public final class Main {
 
     final boolean help =
         Configuration.getBoolean(Main.PARAM_HELP);
-    ConsoleIO.stdout((out) -> {
+    ConsoleIO.stdout(out -> {
       out.println("Welcome to UltraSvgz " + //$NON-NLS-1$
       UltraSvgz.VERSION);
       UltraSvgz.printLicense(out);
@@ -38,6 +38,10 @@ public final class Main {
         "=path/to/file ... the path to the file to write compressed output to (can be omitted, in which case an the same name as the input file, just with svgz suffix, will be used)");//$NON-NLS-1$
         out.println(' ' + IOJobBuilder.PARAM_STDOUT + //
         " ... write data to stdout instead of file");//$NON-NLS-1$
+        out.println(' '
+            + UltraSvgzIOJobBuilder.PARAM_DONT_CLEANSE_WHITESPACE
+            + //
+        " ... don't cleanse white space");//$NON-NLS-1$
         out.println(' ' + Main.PARAM_HELP + //
         "... print this help screen");//$NON-NLS-1$
         Execute.printArgs(out);

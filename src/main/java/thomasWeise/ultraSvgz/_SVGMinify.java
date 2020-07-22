@@ -38,7 +38,7 @@ final class _SVGMinify {
    *          the body
    * @return the separator
    */
-  private static final char[] __sep(final byte[] body) {
+  private static char[] __sep(final byte[] body) {
     for (int i = 1;; i++) {
       final char[] dst = new char[i];
       if (_SVGMinify.__sep(body, dst, 0)) {
@@ -62,7 +62,7 @@ final class _SVGMinify {
    *          the current character index
    * @return {@code true} if we are done, {@code false} otherwise
    */
-  private static final boolean __sep(final byte[] body,
+  private static boolean __sep(final byte[] body,
       final char[] sb, final int index) {
 
     outer: for (final char ch : _SVGMinify.SEP) {
@@ -96,7 +96,7 @@ final class _SVGMinify {
    * @throws IOException
    *           if i/o fails
    */
-  private static final String __getResult(final Socket socket)
+  private static String __getResult(final Socket socket)
       throws IOException {
     String answer = null;
     try (final InputStream is = socket.getInputStream()) {
@@ -133,7 +133,7 @@ final class _SVGMinify {
    *          the input
    * @return the output
    */
-  static final byte[] _apply(final byte[] in) {
+  static byte[] _apply(final byte[] in) {
 
     try {
       InetAddress addr = InetAddress.getByName(_SVGMinify.HOST);

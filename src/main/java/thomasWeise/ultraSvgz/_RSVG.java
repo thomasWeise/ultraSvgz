@@ -28,7 +28,7 @@ final class _RSVG {
    *          the input
    * @return the output
    */
-  static final byte[] _apply(final byte[] in) {
+  static byte[] _apply(final byte[] in) {
     if (in == null) {
       return null;
     }

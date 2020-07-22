@@ -11,6 +11,9 @@ import thomasWeise.tools.IOJob;
 /** The job for the ultra svgz I/O tool. */
 public final class UltraSvgzIOJob extends IOJob {
 
+  /** should white space be removed? */
+  private final boolean m_cleanseWhiteSpace;
+
   /**
    * create
    *
@@ -19,11 +22,12 @@ public final class UltraSvgzIOJob extends IOJob {
    */
   UltraSvgzIOJob(final UltraSvgzIOJobBuilder ugo) {
     super(ugo);
+    this.m_cleanseWhiteSpace = ugo.getCleanseWhiteSpace();
   }
 
   /** run! */
   @Override
-  public final void run() {
+  public void run() {
     byte[] data;
     byte[] out;
     int size;
@@ -54,7 +58,9 @@ public final class UltraSvgzIOJob extends IOJob {
           name + " has loaded input data - now compressing."); //$NON-NLS-1$
 
       out = UltraSvgz.getInstance().get().setData(data)//
-          .setName(name).get().call();
+          .setName(name)
+          .setCleanseWhiteSpace(this.m_cleanseWhiteSpace)//
+          .get().call();
 
       ConsoleIO.stdout(
           name + " has compressed the input data down to " //$NON-NLS-1$
